@@ -7,7 +7,7 @@ import NotesBar from "../Components/Sidebar/NotesBar";
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col h-screen grow-0 ">
+    <div className="flex flex-col h-screen grow-0 bg-gradient-to-r from-violet-200 to-pink-200 ">
       <Header />
       <div className="flex h-full">
         <MenuBar />

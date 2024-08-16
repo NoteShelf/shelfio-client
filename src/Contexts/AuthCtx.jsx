@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
 import { AUTH_TOKEN_KEY } from "../Lib/LocalStorageKeys";
+import { useNavigate } from "react-router-dom";
 
 const AuthCtxApi = createContext();
 const useAuthCtx = () => useContext(AuthCtxApi);
@@ -15,6 +16,7 @@ const AuthCtx = ({ children }) => {
     setToken(undefined);
     setUser(undefined);
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    setIsAuthenticated(false);
   };
 
   const handleToken = (token) => {
