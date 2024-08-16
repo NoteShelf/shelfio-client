@@ -15,6 +15,7 @@ const AuthCtx = ({ children }) => {
     setToken(undefined);
     setUser(undefined);
     localStorage.removeItem(AUTH_TOKEN_KEY);
+    setIsAuthenticated(false);
   };
 
   const handleToken = (token) => {
