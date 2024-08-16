@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
 import { AUTH_TOKEN_KEY } from "../Lib/LocalStorageKeys";
-import { useNavigate } from "react-router-dom";
 
 const AuthCtxApi = createContext();
 const useAuthCtx = () => useContext(AuthCtxApi);

@@ -29,14 +29,15 @@ const useAxios = () => {
   );
 
   const handleError = (error) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       logoutHandler();
     }
 
-    if (error.response.data) {
+    if (error.response?.data?.error) {
       setErrorMsg(error.response.data.error);
     } else {
       setErrorMsg("Something went wrong, please try again later");
+      console.error(error.message);
     }
   };
 
