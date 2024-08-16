@@ -9,13 +9,23 @@ import { useAuthCtx } from "../Contexts/AuthCtx";
 import { DASHBOARD_ROUTE_POINT } from "../Config/Routes";
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState({ email: "", password: "12" });
 
-  const { axiosInstance } = useAxios();
+  const {
+    axiosInstance,
+    handleError,
+    errorMsg,
+    setErrorMsg,
+    isLoading,
+    setIsLoading,
+  } = useAxios();
+
   const { handleToken } = useAuthCtx();
   const navigate = useNavigate();
 
   const onChangeHandler = (type, value) => {
+    setErrorMsg("");
+
     setLoginData((prevData) => {
       return { ...prevData, [type]: value };
     });
@@ -23,12 +33,15 @@ const Login = () => {
 
   const loginBtnHandler = async () => {
     try {
+      setErrorMsg("");
       const { data } = await axiosInstance.post(LOGIN_API_ENDPOINT, loginData);
 
       handleToken(data.token);
 
       navigate(DASHBOARD_ROUTE_POINT);
-    } catch (error) {}
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   return (
@@ -45,6 +58,8 @@ const Login = () => {
             onChange={(e) => onChangeHandler("password", e.target.value)}
           />
           <Button onClick={loginBtnHandler} name="Login" />
+
+          {errorMsg && <p className="text-xs text-red-600">{errorMsg}</p>}
         </div>
       </div>
     </section>
