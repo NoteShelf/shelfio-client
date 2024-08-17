@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import useAxios from "../Hooks/useAxios";
 import { BOOK_API_ENDPOINT } from "../Config/UserApiEndPoints";
+import { NOTE_API_ENDPOINT } from "../Config/NotesApiEndPoints";
 
 const BookCtxApi = createContext();
 
@@ -9,6 +10,7 @@ const useBookCtx = () => useContext(BookCtxApi);
 
 const BookCtx = ({ children }) => {
   const [books, setBooks] = useState();
+  const [allNotes, setAllNotes] = useState();
 
   const { axiosInstance, handleError, errorMsg, setErrorMsg } = useAxios();
 
@@ -40,8 +42,32 @@ const BookCtx = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const createNote = async (payload) => {
+    try {
+      setErrorMsg("");
+
+      await axiosInstance.post(NOTE_API_ENDPOINT, payload);
+
+      getAllNotes(payload.book_id);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const getAllNotes = async (bookId) => {
+    try {
+      const { data } = await axiosInstance(NOTE_API_ENDPOINT + "?id=" + bookId);
+
+      setAllNotes(data);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   return (
-    <BookCtxApi.Provider value={{ books, createBook, errorMsg }}>
+    <BookCtxApi.Provider
+      value={{ books, createBook, createNote, getAllNotes, allNotes, errorMsg }}
+    >
       {children}
     </BookCtxApi.Provider>
   );
