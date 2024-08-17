@@ -11,14 +11,7 @@ import { DASHBOARD_ROUTE_POINT } from "../Config/Routes";
 const Login = () => {
   const [loginData, setLoginData] = useState({ email: "", password: "12" });
 
-  const {
-    axiosInstance,
-    handleError,
-    errorMsg,
-    setErrorMsg,
-    isLoading,
-    setIsLoading,
-  } = useAxios();
+  const { axiosInstance, handleError, errorMsg, setErrorMsg } = useAxios();
 
   const { handleToken } = useAuthCtx();
   const navigate = useNavigate();

@@ -15,7 +15,7 @@ const Notes = ({ bookId, bookName }) => {
   }, [bookId]);
 
   return (
-    <section className="flex flex-col w-72  my-2.5 -ml-2 px-5 py-5 space-y-5 bg-white">
+    <section className="flex flex-col shrink-0 w-72 border-2 my-2.5 -ml-2 px-5 py-5 space-y-5 bg-white">
       <h5 className="font-bold flex-wrap w-full">{bookName}</h5>
 
       <CreateNote bookId={bookId} />
