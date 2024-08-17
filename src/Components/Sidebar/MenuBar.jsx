@@ -25,11 +25,12 @@ const MenuBar = () => {
             {books &&
               books.map((book) => (
                 <Books
-                  onClick={() =>
-                    setSelectedBook({ id: book.id, name: book.title })
-                  }
+                  onClick={() => {
+                    setSelectedBook({ id: book.id, name: book.title });
+                  }}
                   key={book.id}
                   bookData={book}
+                  selectedBook={selectedBook}
                 />
               ))}
           </div>

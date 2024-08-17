@@ -1,17 +1,15 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
 
-const Editor = ({ placeholder }) => {
+const Editor = ({}) => {
   const editor = useRef(null);
+
   const [content, setContent] = useState("");
 
-  const config = useMemo(
-    () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: placeholder || "Start typings...",
-    }),
-    [placeholder]
-  );
+  const config = {
+    readonly: false,
+    placeholder: "Start typings...",
+  };
 
   return (
     <JoditEditor

@@ -11,6 +11,7 @@ const useBookCtx = () => useContext(BookCtxApi);
 const BookCtx = ({ children }) => {
   const [books, setBooks] = useState();
   const [allNotes, setAllNotes] = useState();
+  const [selectedNote, setSelectedNote] = useState();
 
   const { axiosInstance, handleError, errorMsg, setErrorMsg } = useAxios();
 
@@ -66,7 +67,16 @@ const BookCtx = ({ children }) => {
 
   return (
     <BookCtxApi.Provider
-      value={{ books, createBook, createNote, getAllNotes, allNotes, errorMsg }}
+      value={{
+        errorMsg,
+        books,
+        createBook,
+        createNote,
+        getAllNotes,
+        allNotes,
+        setSelectedNote,
+        selectedNote,
+      }}
     >
       {children}
     </BookCtxApi.Provider>
