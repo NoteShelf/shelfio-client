@@ -11,7 +11,6 @@ const Dashboard = () => {
       <Header />
       <div className="flex h-full">
         <MenuBar />
-        <NotesBar />
         <MainPage />
       </div>
     </div>
