@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import useAxios from "../Hooks/useAxios";
 import { BOOK_API_ENDPOINT } from "../Config/UserApiEndPoints";
@@ -11,7 +17,8 @@ const useBookCtx = () => useContext(BookCtxApi);
 const BookCtx = ({ children }) => {
   const [books, setBooks] = useState();
   const [allNotes, setAllNotes] = useState();
-  const [selectedNote, setSelectedNote] = useState();
+
+  const selectedNote = useRef();
 
   const { axiosInstance, handleError, errorMsg, setErrorMsg } = useAxios();
 
@@ -65,6 +72,16 @@ const BookCtx = ({ children }) => {
     }
   };
 
+  const updateNote = async (content) => {
+    try {
+      await axiosInstance.put(NOTE_API_ENDPOINT, content);
+
+      getAllNotes(content.book_id);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   return (
     <BookCtxApi.Provider
       value={{
@@ -74,8 +91,9 @@ const BookCtx = ({ children }) => {
         createNote,
         getAllNotes,
         allNotes,
-        setSelectedNote,
+        setAllNotes,
         selectedNote,
+        updateNote,
       }}
     >
       {children}
