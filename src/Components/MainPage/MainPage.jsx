@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Editor from "../Editor/Editor";
 import { useBookCtx } from "../../Contexts/BookCtx";
-import { onEnterKeyFn } from "../../Util/Helper";
 
 const MainPage = () => {
   const { selectedNote, allNotes, setAllNotes, updateNote } = useBookCtx();

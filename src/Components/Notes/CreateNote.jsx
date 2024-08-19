@@ -1,23 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
-// import Button from "../Buttons/Button";
-// import Popup from "../Popup/Popup";
-// import Input from "../Inputs/Input";
 import { useBookCtx } from "../../Contexts/BookCtx";
 import AddButton from "../Buttons/AddButton";
 
 const CreateNote = ({ bookId }) => {
-  // const [showPopup, setShowPopup] = useState(false);
-  // const [noteName, setNoteName] = useState("");
-
   const { createNote } = useBookCtx();
 
   const createBtnHandler = async () => {
     const payload = { title: "", book_id: bookId, content: "" };
 
     await createNote(payload);
-
-    // setShowPopup(false);
   };
 
   return (

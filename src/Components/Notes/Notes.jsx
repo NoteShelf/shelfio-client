@@ -22,6 +22,8 @@ const Notes = ({ bookId, bookName }) => {
     } else {
       selectedNote.current = undefined;
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickHandler = (note) => {
