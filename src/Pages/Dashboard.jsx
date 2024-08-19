@@ -3,7 +3,6 @@ import React from "react";
 import MainPage from "../Components/MainPage/MainPage";
 import Header from "../Components/Header/Header";
 import MenuBar from "../Components/Sidebar/MenuBar";
-import NotesBar from "../Components/Sidebar/NotesBar";
 
 const Dashboard = () => {
   return (

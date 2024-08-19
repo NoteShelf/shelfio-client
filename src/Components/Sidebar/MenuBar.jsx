@@ -12,7 +12,7 @@ const MenuBar = () => {
 
   return (
     <>
-      <aside className="flex flex-col w-72 my-2 ml-2 z-10 px-5 py-5 space-y-5 border-2 rounded-lg shadow-lg bg-white">
+      <aside className="flex flex-col shrink-0 w-72 my-2 ml-2 z-10 px-5 py-5 space-y-5 border-2 rounded-lg shadow-lg bg-white">
         <CreateBook />
 
         <section>
@@ -21,15 +21,16 @@ const MenuBar = () => {
             <h5 className="font-bold">Books</h5>
           </div>
 
-          <div className="h-[68vh] space-y-2 my-2 ml-1 overflow-y-auto">
+          <div className=" space-y-2 my-2 ml-1 overflow-y-auto">
             {books &&
               books.map((book) => (
                 <Books
-                  onClick={() =>
-                    setSelectedBook({ id: book.id, name: book.title })
-                  }
+                  onClick={() => {
+                    setSelectedBook({ id: book.id, name: book.title });
+                  }}
                   key={book.id}
                   bookData={book}
+                  selectedBook={selectedBook}
                 />
               ))}
           </div>
