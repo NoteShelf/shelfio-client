@@ -1,1 +1,1 @@
-export const BASE_URL = "https://shelf-api.koyeb.app";
+export const BASE_URL = "https://shelfio.koyeb.app";
