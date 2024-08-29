@@ -7,8 +7,8 @@ import React, {
 } from "react";
 
 import useAxios from "../Hooks/useAxios";
-import { BOOK_API_ENDPOINT } from "../Config/UserApiEndPoints";
 import { NOTE_API_ENDPOINT } from "../Config/NotesApiEndPoints";
+import { BOOK_API_ENDPOINT } from "../Config/BoookApiEndpoints";
 
 const BookCtxApi = createContext();
 
@@ -26,7 +26,7 @@ const BookCtx = ({ children }) => {
     try {
       setErrorMsg("");
 
-      await axiosInstance.post(BOOK_API_ENDPOINT, payload);
+      await axiosInstance.post(BOOK_API_ENDPOINT  , payload);
       getBooks();
     } catch (error) {
       handleError(error);
@@ -94,6 +94,7 @@ const BookCtx = ({ children }) => {
         setAllNotes,
         selectedNote,
         updateNote,
+        getBooks,
       }}
     >
       {children}
