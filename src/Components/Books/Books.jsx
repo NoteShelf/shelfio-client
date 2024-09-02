@@ -7,15 +7,46 @@ import { useBookCtx } from "../../Contexts/BookCtx";
 
 const OPERATION_CODE = {
   delete: 0,
+  rename: 1,
 };
 
-const INLINE_POPUP_OPTIONS = [{ code: OPERATION_CODE.delete, name: "Delete" }];
+const INLINE_POPUP_OPTIONS = [
+  { code: OPERATION_CODE.delete, name: "Delete" },
+  { code: OPERATION_CODE.rename, name: "Rename" },
+];
 
 const Books = ({ bookData, onClick, selectedBook }) => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [isrename, setisrename] = useState(false);
+  const [dataTitle, setdataTitle] = useState(bookData.title);
 
   const { axiosInstance } = useAxios();
   const { getBooks } = useBookCtx();
+
+  const startRename = () => {
+    setisrename(true);
+  };
+
+  const handleInputChange = (e) => {
+    setdataTitle(e.target.value);
+    console.log(dataTitle, "raj");
+  };
+
+  const handleKeyPress = async (e) => {
+    console.log(e.code, "codes");
+    if (e.code === "Enter") {
+      try {
+        // Assuming an API call to update the book title
+        // await axiosInstance.put(`${BOOK_API_ENDPOINT}/${bookData.id}`, {
+        //   title: dataTitle,
+        // });
+        // getBooks();
+        setisrename(false);
+      } catch (error) {
+        console.error("Error updating book title:", error);
+      }
+    }
+  };
 
   const onClickBtnHandler = (e) => {
     e.stopPropagation();
@@ -30,7 +61,9 @@ const Books = ({ bookData, onClick, selectedBook }) => {
   };
 
   const popupOnlickHandler = (selectedMenu) => {
-    deleteBook();
+    if (selectedMenu.code === OPERATION_CODE.rename) {
+      startRename();
+    } else deleteBook();
   };
 
   return (
@@ -45,7 +78,16 @@ const Books = ({ bookData, onClick, selectedBook }) => {
     >
       <div className="flex items-center space-x-2">
         <span className="material-symbols-outlined text-sm">book_4</span>
-        <h5>{bookData.title}</h5>
+        {isrename ? (
+          <input
+            type="text"
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+            value={dataTitle}
+          ></input>
+        ) : (
+          <h5>{dataTitle}</h5>
+        )}
       </div>
 
       <div className="">
