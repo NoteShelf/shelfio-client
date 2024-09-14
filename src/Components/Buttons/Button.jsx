@@ -6,6 +6,7 @@ const Button = ({
   disable = false,
   type = "primary",
   customClassNames = "",
+  isLoading,
 }) => {
   let classNames = null;
 
@@ -20,10 +21,16 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      disabled={disable}
-      className={classNames + customClassNames}
+      disabled={disable || isLoading}
+      className={classNames + customClassNames + ` relative min-h-10`}
     >
-      {name}
+      {isLoading ? (
+        <span className="material-symbols-outlined absolute  right-[8.5rem] top-2 animate-spin">
+          progress_activity
+        </span>
+      ) : (
+        name
+      )}
     </button>
   );
 };
