@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../Config/Config";
 import { useAuthCtx } from "../Contexts/AuthCtx";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const useAxios = () => {
   const { token, logoutHandler } = useAuthCtx();
@@ -28,16 +29,25 @@ const useAxios = () => {
     }
   );
 
-  const handleError = (error) => {
+  const handleError = (error, needToast = true) => {
     if (error.response?.status === 401) {
       logoutHandler();
     }
 
+    let errorMessage;
+
     if (error.response?.data?.error) {
       setErrorMsg(error.response.data.error);
+
+      errorMessage = error.response.data.error;
     } else {
       setErrorMsg("Something went wrong, please try again later");
       console.error(error.message);
+      errorMessage = error.message;
+    }
+
+    if (needToast) {
+      toast.error(errorMessage);
     }
   };
 

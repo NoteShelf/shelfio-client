@@ -14,8 +14,8 @@ const INLINE_POPUP_OPTIONS = [{ code: OPERATION_CODE.delete, name: "Delete" }];
 const Books = ({ bookData, onClick, selectedBook }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
-  const { axiosInstance } = useAxios();
-  const { getBooks } = useBookCtx();
+  const { axiosInstance, handleError } = useAxios();
+  const { getBooks, setShowOverlayLoading } = useBookCtx();
 
   const onClickBtnHandler = (e) => {
     e.stopPropagation();
@@ -23,10 +23,16 @@ const Books = ({ bookData, onClick, selectedBook }) => {
   };
 
   const deleteBook = async () => {
+    setShowOverlayLoading(true);
+
     try {
       await axiosInstance.delete(BOOK_API_ENDPOINT + "?id=" + bookData.id);
       getBooks();
-    } catch (error) {}
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setShowOverlayLoading(false);
+    }
   };
 
   const popupOnlickHandler = (selectedMenu) => {

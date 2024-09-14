@@ -1,6 +1,6 @@
 import CloseButton from "../Buttons/CloseButton";
 
-const Popup = ({ heading, onClose, children, show, error }) => {
+const Popup = ({ heading, onClose, children, show }) => {
   if (!show) return null;
 
   return (
@@ -12,8 +12,6 @@ const Popup = ({ heading, onClose, children, show, error }) => {
         </div>
 
         <div className="w-full h-full p-5">{children}</div>
-
-        <p className="text-sm text-red-600">{error}</p>
       </section>
 
       <div className="fixed inset-0 backdrop-contrast-50 z-10"></div>

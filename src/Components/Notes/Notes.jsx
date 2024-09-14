@@ -7,8 +7,14 @@ import useAxios from "../../Hooks/useAxios";
 import { NOTE_API_ENDPOINT } from "../../Config/NotesApiEndPoints";
 
 const Notes = ({ bookId, bookName }) => {
-  const { getAllNotes, allNotes, selectedNote, setAllNotes } = useBookCtx();
-  const { axiosInstance } = useAxios();
+  const {
+    getAllNotes,
+    allNotes,
+    selectedNote,
+    setAllNotes,
+    setShowOverlayLoading,
+  } = useBookCtx();
+  const { axiosInstance, handleError } = useAxios();
 
   useEffect(() => {
     if (bookId) {
@@ -35,11 +41,16 @@ const Notes = ({ bookId, bookName }) => {
     setAllNotes([...allNotes]);
   };
 
-  const onClickDeleteHandler = async(noteId) => {
+  const onClickDeleteHandler = async (noteId) => {
     try {
+      setShowOverlayLoading(true);
       await axiosInstance.delete(NOTE_API_ENDPOINT + "?id=" + noteId);
       getAllNotes(bookId);
-    } catch (error) {}
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setShowOverlayLoading(false);
+    }
   };
 
   return (
@@ -59,10 +70,7 @@ const Notes = ({ bookId, bookName }) => {
                   (selectedNote.current?.id === note.id ? " bg-slate-100" : "")
                 }
               >
-              <h6 className="font-semibold text-sm">{note.title}</h6>
-              
-
-              
+                <h6 className="font-semibold text-sm">{note.title}</h6>
 
                 <DeleteBtn onClick={() => onClickDeleteHandler(note.id)} />
               </div>

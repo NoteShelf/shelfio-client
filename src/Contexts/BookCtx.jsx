@@ -17,16 +17,15 @@ const useBookCtx = () => useContext(BookCtxApi);
 const BookCtx = ({ children }) => {
   const [books, setBooks] = useState();
   const [allNotes, setAllNotes] = useState();
+  const [showOverlayLoading, setShowOverlayLoading] = useState(false);
 
   const selectedNote = useRef();
 
-  const { axiosInstance, handleError, errorMsg, setErrorMsg } = useAxios();
+  const { axiosInstance, handleError } = useAxios();
 
   const createBook = async (payload) => {
     try {
-      setErrorMsg("");
-
-      await axiosInstance.post(BOOK_API_ENDPOINT  , payload);
+      await axiosInstance.post(BOOK_API_ENDPOINT, payload);
       getBooks();
     } catch (error) {
       handleError(error);
@@ -38,8 +37,6 @@ const BookCtx = ({ children }) => {
       const { data } = await axiosInstance.get(BOOK_API_ENDPOINT);
 
       setBooks(data);
-
-      setErrorMsg("");
     } catch (error) {
       handleError(error);
     }
@@ -52,8 +49,6 @@ const BookCtx = ({ children }) => {
 
   const createNote = async (payload) => {
     try {
-      setErrorMsg("");
-
       await axiosInstance.post(NOTE_API_ENDPOINT, payload);
 
       getAllNotes(payload.book_id);
@@ -85,7 +80,6 @@ const BookCtx = ({ children }) => {
   return (
     <BookCtxApi.Provider
       value={{
-        errorMsg,
         books,
         createBook,
         createNote,
@@ -95,6 +89,8 @@ const BookCtx = ({ children }) => {
         selectedNote,
         updateNote,
         getBooks,
+        showOverlayLoading,
+        setShowOverlayLoading,
       }}
     >
       {children}

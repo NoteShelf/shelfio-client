@@ -43,7 +43,7 @@ const Login = () => {
 
       navigate(DASHBOARD_ROUTE_POINT);
     } catch (error) {
-      handleError(error);
+      handleError(error, false);
     } finally {
       setIsLoading(false);
     }
