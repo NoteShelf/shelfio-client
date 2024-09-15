@@ -17,7 +17,6 @@ const MenuBar = () => {
 
         <section>
           <div className="flex items-center space-x-2 border-b py-2">
-            {/* <span class="material-symbols-outlined">book_4</span> */}
             <h5 className="font-bold">Books</h5>
           </div>
 

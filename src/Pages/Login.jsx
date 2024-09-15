@@ -64,6 +64,7 @@ const Login = () => {
       />
       <Input
         label="Password"
+        type="password"
         onChange={(e) => onChangeHandler("password", e.target.value)}
       />
       <Button isLoading={isLoading} onClick={loginBtnHandler} name="SIGN IN" />

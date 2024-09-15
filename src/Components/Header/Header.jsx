@@ -29,13 +29,15 @@ const Header = () => {
           </button>
 
           {showMenu && (
-            <div className="flex flex-col absolute top-9 shadow-lg p-3 space-y-2 w-72 border-2 rounded-lg bg-white right-0 text-black">
+            <div className="flex flex-col absolute z-30 top-9 shadow-lg p-3 space-y-2 w-72 border-2 rounded-lg bg-white right-0 text-black">
               <div className="flex w-full text-sm gap-1 flex-wrap">
-                <span class="material-symbols-outlined">person</span>
+                <span className="material-symbols-outlined">person</span>
                 <span>{user.name}</span>
               </div>
               <div className="flex w-full text-sm gap-1 flex-wrap">
-                <span class="material-symbols-outlined">alternate_email</span>
+                <span className="material-symbols-outlined">
+                  alternate_email
+                </span>
                 <span>{user.email}</span>
               </div>
               <div
@@ -43,7 +45,7 @@ const Header = () => {
                 role="button"
                 className="flex  text-sm space-x-1 cursor-pointer"
               >
-                <span class="material-symbols-outlined">logout</span>
+                <span className="material-symbols-outlined">logout</span>
                 <span>Logout</span>
               </div>
             </div>
