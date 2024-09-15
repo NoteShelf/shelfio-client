@@ -8,14 +8,18 @@ import { useBookCtx } from "../../Contexts/BookCtx";
 const CreateBook = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [bookName, setBookName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { createBook, errorMsg } = useBookCtx();
+  const { createBook } = useBookCtx();
 
   const createBtnHandler = async () => {
+    setIsLoading(true);
+
     const payload = { title: bookName };
 
     await createBook(payload);
 
+    setIsLoading(false);
     setShowPopup(false);
   };
 
@@ -31,15 +35,20 @@ const CreateBook = () => {
         heading="Create Book"
         show={showPopup}
         onClose={() => setShowPopup(false)}
-        error={errorMsg}
       >
         <div className="flex flex-col w-full space-y-5">
           <Input
+            autoFocus={true}
             onChange={(e) => setBookName(e.target.value)}
             label="Book Name"
           />
 
-          <Button onClick={createBtnHandler} name="Create" />
+          <Button
+            disable={!bookName}
+            onClick={createBtnHandler}
+            name="Create"
+            isLoading={isLoading}
+          />
         </div>
       </Popup>
     </div>

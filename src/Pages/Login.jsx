@@ -43,7 +43,7 @@ const Login = () => {
 
       navigate(DASHBOARD_ROUTE_POINT);
     } catch (error) {
-      handleError(error);
+      handleError(error, false);
     } finally {
       setIsLoading(false);
     }
@@ -64,6 +64,7 @@ const Login = () => {
       />
       <Input
         label="Password"
+        type="password"
         onChange={(e) => onChangeHandler("password", e.target.value)}
       />
       <Button isLoading={isLoading} onClick={loginBtnHandler} name="SIGN IN" />

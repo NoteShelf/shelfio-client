@@ -1,4 +1,66 @@
 .jodit-container {
   border: none !important;
   background-color: white !important;
+  flex-wrap: wrap;
+  height: 75vh !important;
 }
+
+.jodit-wysiwyg ol,
+.jodit-wysiwyg ul,
+.jodit-wysiwyg menu {
+  list-style: initial;
+  margin-left: 20px; /* Default margin for lists */
+  padding-left: 20px; /* Default padding for lists */
+}
+
+.jodit-wysiwyg ol {
+  list-style-type: decimal; /* Ensures ordered list uses numbers */
+  margin-left: 20px; /* Adjust the margin if needed */
+  padding-left: 20px; /* Adjust the padding if needed */
+}
+
+.jodit-wysiwyg p {
+  font-size: 16px;
+}
+
+.jodit-wysiwyg h1 {
+  font-size: 2em;
+}
+
+.jodit-wysiwyg h2 {
+  font-size: 1.75em;
+}
+
+.jodit-wysiwyg h3 {
+  font-size: 1.5em;
+}
+
+.jodit-wysiwyg h4 {
+  font-size: 1.25em;
+}
+
+.jodit-wysiwyg code {
+  font-family: monospace;
+  background-color: #f5f5f5;
+  padding: 2px 4px;
+  border-radius: 3px;
+  cursor: text;
+}
+
+.jodit-wysiwyg blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 10px;
+  color: #555;
+}
+
+.jodit-toolbar__select-class {
+  display: none !important;
+}
+
+/* .jodit-wysiwyg pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+} */

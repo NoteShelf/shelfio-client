@@ -7,7 +7,7 @@ const AddButton = ({ onClick, title }) => {
       title={title}
       className="flex justify-center items-center w-5 h-5 rounded-full border border-gray-900 hover:bg-gray-900 hover:text-white "
     >
-      <span class="material-symbols-outlined text-xs">add</span>
+      <span className="material-symbols-outlined text-xs">add</span>
     </button>
   );
 };

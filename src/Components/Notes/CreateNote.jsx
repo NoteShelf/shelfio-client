@@ -4,12 +4,14 @@ import { useBookCtx } from "../../Contexts/BookCtx";
 import AddButton from "../Buttons/AddButton";
 
 const CreateNote = ({ bookId }) => {
-  const { createNote } = useBookCtx();
+  const { createNote, setShowOverlayLoading } = useBookCtx();
 
   const createBtnHandler = async () => {
+    setShowOverlayLoading(true);
     const payload = { title: "", book_id: bookId, content: "" };
 
     await createNote(payload);
+    setShowOverlayLoading(false);
   };
 
   return (

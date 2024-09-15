@@ -4,6 +4,7 @@ import InlinePopup from "../Popup/InlinePopup";
 import useAxios from "../../Hooks/useAxios";
 import { BOOK_API_ENDPOINT } from "../../Config/BoookApiEndpoints";
 import { useBookCtx } from "../../Contexts/BookCtx";
+import useOutsideClick from "../../Hooks/useOutsideClick";
 
 const OPERATION_CODE = {
   delete: 0,
@@ -20,30 +21,41 @@ const Books = ({ bookData, onClick, selectedBook }) => {
   const [isrename, setisrename] = useState(false);
   const [dataTitle, setdataTitle] = useState(bookData.title);
 
-  const { axiosInstance } = useAxios();
-  const { getBooks } = useBookCtx();
+  const { axiosInstance, handleError } = useAxios();
+  const { getBooks, setShowOverlayLoading } = useBookCtx();
+  const { ref } = useOutsideClick(() => setOpenMenu(false));
+
+  const titleOutSideClickHandler = () => {
+    setisrename(false);
+    setdataTitle(bookData.title);
+  };
+
+  const { ref: ref1 } = useOutsideClick(titleOutSideClickHandler);
 
   const startRename = () => {
     setisrename(true);
+    setOpenMenu(false);
   };
 
   const handleInputChange = (e) => {
     setdataTitle(e.target.value);
-    console.log(dataTitle, "raj");
   };
 
   const handleKeyPress = async (e) => {
-    console.log(e.code, "codes");
     if (e.code === "Enter") {
       try {
-        // Assuming an API call to update the book title
-        // await axiosInstance.put(`${BOOK_API_ENDPOINT}/${bookData.id}`, {
-        //   title: dataTitle,
-        // });
-        // getBooks();
-        setisrename(false);
+        await axiosInstance.put(BOOK_API_ENDPOINT, {
+          title: dataTitle,
+          id: bookData.id,
+        });
+
+        getBooks();
       } catch (error) {
         console.error("Error updating book title:", error);
+        handleError(error);
+        setdataTitle(bookData.title);
+      } finally {
+        setisrename(false);
       }
     }
   };
@@ -54,16 +66,24 @@ const Books = ({ bookData, onClick, selectedBook }) => {
   };
 
   const deleteBook = async () => {
+    setShowOverlayLoading(true);
+
     try {
       await axiosInstance.delete(BOOK_API_ENDPOINT + "?id=" + bookData.id);
       getBooks();
-    } catch (error) {}
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setShowOverlayLoading(false);
+    }
   };
 
   const popupOnlickHandler = (selectedMenu) => {
     if (selectedMenu.code === OPERATION_CODE.rename) {
       startRename();
-    } else deleteBook();
+    } else {
+      deleteBook();
+    }
   };
 
   return (
@@ -84,7 +104,8 @@ const Books = ({ bookData, onClick, selectedBook }) => {
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
             value={dataTitle}
-          ></input>
+            ref={ref1}
+          />
         ) : (
           <h5>{dataTitle}</h5>
         )}
@@ -102,12 +123,14 @@ const Books = ({ bookData, onClick, selectedBook }) => {
           more_vert
         </span>
 
-        {openMenu && (
-          <InlinePopup
-            onClick={popupOnlickHandler}
-            options={INLINE_POPUP_OPTIONS}
-          />
-        )}
+        <div ref={ref}>
+          {openMenu && (
+            <InlinePopup
+              onClick={popupOnlickHandler}
+              options={INLINE_POPUP_OPTIONS}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

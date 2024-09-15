@@ -8,6 +8,7 @@ const Input = ({
   type = "text",
   error,
   showError,
+  autoFocus = false,
 }) => {
   return (
     <div className="flex flex-col space-y-1">
@@ -21,6 +22,7 @@ const Input = ({
         id={label}
         type={type}
         placeholder={placeholder}
+        autoFocus={autoFocus}
       />
       {showError && <span className="text-red-600 text-xs">{error}</span>}
     </div>
