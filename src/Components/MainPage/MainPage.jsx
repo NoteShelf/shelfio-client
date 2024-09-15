@@ -20,8 +20,8 @@ const MainPage = () => {
   if (!selectedNote.current) return null;
 
   return (
-    <div className="flex flex-col w-full m-2 z-10 px-5 py-5 space-y-5 border-2 rounded-lg shadow-lg bg-white">
-      <div className="flex items-center ">
+    <div className="grow w-[60%] m-2 z-10 px-5 py-5 space-y-5 border-2 rounded-lg shadow-lg bg-white ">
+      <div className=" items-center ">
         <input
           onChange={(e) => onCHangeHandler(e.target.value)}
           value={selectedNote.current.title}

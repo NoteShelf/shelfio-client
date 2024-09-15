@@ -11,9 +11,9 @@ const Dashboard = () => {
   const { showOverlayLoading } = useBookCtx();
 
   return (
-    <div className="flex flex-col h-screen grow-0 bg-gradient-to-r from-violet-200 to-pink-200 ">
+    <div className="flex flex-col h-screen  bg-gradient-to-r from-violet-200 to-pink-200 ">
       <Header />
-      <div className="flex h-full">
+      <div className="flex h-full w-full grow-0 overflow-hidden">
         <MenuBar />
         <MainPage />
       </div>

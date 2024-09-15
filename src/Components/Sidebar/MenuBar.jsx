@@ -11,7 +11,7 @@ const MenuBar = () => {
   const { books } = useBookCtx();
 
   return (
-    <>
+    <div className="flex grow-0">
       <aside className="flex flex-col shrink-0 w-72 my-2 ml-2 z-10 px-5 py-5 space-y-5 border-2 rounded-lg shadow-lg bg-white">
         <CreateBook />
 
@@ -40,7 +40,7 @@ const MenuBar = () => {
       {selectedBook && (
         <Notes bookId={selectedBook.id} bookName={selectedBook.name} />
       )}
-    </>
+    </div>
   );
 };
 
